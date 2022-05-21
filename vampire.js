@@ -57,7 +57,9 @@ class Vampire {
   closestCommonAncestor(vampire) {
     let a = this.numberOfVampiresFromOriginal;
     let b = vampire.numberOfVampiresFromOriginal;
-    if (a < b) {
+    if (a === b) {
+      return this.creator;
+    } else if (a < b) {
       return this;
     }
     return vampire;
