@@ -47,6 +47,17 @@ class Vampire {
     }
   }
 
+  //Create helper function to help following function
+  //It create a array of creator of 'this' till to original
+  get listOfCreator() {
+    let creatorList = [this];
+    let currentVam = this;
+    while (currentVam.creator !== null) {
+      currentVam = currentVam.creator;
+      creatorList.push(currentVam);
+    }
+    return creatorList;
+  }
   /** Stretch **/
 
   // Returns the closest common ancestor of two vampires.
@@ -55,14 +66,11 @@ class Vampire {
   // * when comparing Ansel and Sarah, Ansel is the closest common anscestor.
   // * when comparing Ansel and Andrew, Ansel is the closest common anscestor.
   closestCommonAncestor(vampire) {
-    let a = this.numberOfVampiresFromOriginal;
-    let b = vampire.numberOfVampiresFromOriginal;
-    if (a === b) {
-      return this.creator;
-    } else if (a < b) {
-      return this;
-    }
-    return vampire;
+    let thisList = this.listOfCreator;
+    let thatList = vampire.listOfCreator;
+
+    let result = thisList.filter((x) => thatList.includes(x));
+    return result[0];
   }
 }
 
